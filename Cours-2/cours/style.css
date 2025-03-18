@@ -1,0 +1,73 @@
+* {
+  box-sizing: border-box;
+  list-style: none;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  /* C'est mieux de mettre la font dans alla plutôt que dans body afin que les boutons aient aussi la bonne font d'office */
+}
+
+body {
+  margin: 0;
+  text-align: center;
+  color: white;
+  min-height: 200vh;
+  overflow-x: hidden;
+}
+.box {
+  border: 6px solid white;
+  transition: 0.25s;
+  background: black;
+  padding: 10px;
+}
+p {
+  visibility: hidden;
+  /* Pour cacher un objet qui arrivera ensuite, c'est mieux de faire de la visibility plutôt que du dusplay none */
+  width: 240px;
+  margin: 10px auto 0;
+  opacity: 0;
+  transition: 0.6s;
+  transform: translateX(-20px);
+}
+/* On va tenter de faire réapparaître le p en vert en JS lorsque l'user appuie sur la bonne réponse et en rouge lorsqu'il appuie sur la mauvaise. RDV sur index.js */
+
+/* Ici on peut créer une nouvelle classe lorsqu'un élément est clicked par exemple : */
+.question-clicked {
+  background: rgb(47, 47, 47);
+  border-radius: 40px;
+  border: 6px dashed pink;
+}
+
+.show-response {
+  visibility: visible;
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.mousemove {
+  height: 50px;
+  width: 50px;
+  border: 2px solid pink;
+  border-radius: 50px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  transition: 0.08s ease;
+  /* afin qu'il ne cache pas la souris pour cliquer : */
+  z-index: -1;
+}
+
+nav {
+  background: rgb(56, 104, 1);
+  position: fixed;
+  width: 100%;
+  height: 50px;
+  top: -50px;
+  transition: 0.4s;
+}
+
+ul {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0;
+}
