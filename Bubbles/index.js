@@ -2,7 +2,7 @@
 const counterDisplay = document.querySelector("h3");
 let counter = 0;
 
-alert("Explosez les bubulles !");
+alert("Explosez les bubulles colorées !");
 
 // Créer une fonction qui génère une bulle :
 const bubbleMaker = () => {
