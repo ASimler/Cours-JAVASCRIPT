@@ -165,3 +165,86 @@ console.log(string2.replace("Javascript", "Php"));
 // **************************************************************
 // Méthodes Number :
 // **************************************************************
+let number2 = 42.1234;
+let numberString = "42.12 est un chiffre";
+console.log(number2.toFixed(2));
+console.log(
+  parseInt(numberString)
+); /* Garde le premier nombre trouvé dans la chaine de caractère, ne tiens pas compte des points ou virgules */
+console.log(parseFloat(numberString)); /* Tiens compte des points */
+
+// L'objet Math :
+console.log(Math.PI);
+console.log(Math.round(4.8));
+console.log(Math.floor(4.8)); /* Arrondi à l'inférieur */
+console.log(Math.ceil(4.2)); /* Arrondi au supérieur */
+console.log(
+  Math.pow(2, 7)
+); /* Puissances : 2 à la puissance 7 (aussi faisable en JS avec le double étoile ** ;*/
+console.log(Math.sqrt(16)); /* ARacine carrée */
+
+// Les plus importantes :
+// **********************
+console.log(
+  Math.random()
+); /* Chiffre aléatoire entre 0 et 1  * 50 si on veut entre 0 et 50 ou etc... */
+console.log(
+  Math.floor(Math.random() * 100)
+); /* Pour qu'il n'y ait pas de virgule */
+
+// **************************************************************
+// Méthodes Arrays :
+// **************************************************************
+let array3 = ["Javascript", "Php", "Python"];
+let array4 = ["Ruby", "Solidity"];
+
+// Fusion de deux tableaux :
+// let newArray = array3.concat(array4);
+// console.log(newArray);
+// OU :
+let newArray = [...array3, ...array4]; /* ... = spread operator */
+console.log(newArray);
+
+// Méthode join :
+console.log(
+  array3.join("-")
+); /* Créer une chaine de caractères avec les éléments du tableau séparés par des "tirets" ici */
+
+// Méthode slice :
+console.log(
+  array3.slice(2)
+); /* A retiré les deux premiers éléments du tableau */
+// Peut prendre aussi 2 param : du n°x au n°y :
+console.log(newArray.slice(3, 5));
+
+// Index of !
+console.log(array3.indexOf("Php"));
+
+// For each :
+array3.forEach((languages) => {
+  console.log(languages);
+});
+
+// Test sur chaque élément :
+console.log(array3.every((language) => language === "Php"));
+// Attention : n'est pas capable de trouver une lettre précise dans chaque élément contitué d'un mot
+
+// Some : savoir si le tbleau contient un élément précis :
+console.log(array3.some((language) => language == "Php"));
+
+// Shift :
+// let shift = array3.shift(); /* Retire du tableau le premier index du tableau et le montre */
+// console.log(shift);
+
+// Pop :
+// console.log(array3.pop());
+// = retire le dernier élément du tableau et le montre
+
+// SPLICE :
+const restArray = array3.splice(
+  1,
+  1,
+  "C++"
+); /* A l'emplacement 1 tu retires un élément et du mets "C++" = remplace un élément */
+console.log(restArray);
+console.log(array3);
