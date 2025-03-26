@@ -248,3 +248,179 @@ const restArray = array3.splice(
 ); /* A l'emplacement 1 tu retires un élément et du mets "C++" = remplace un élément */
 console.log(restArray);
 console.log(array3);
+
+// IMPORTANT
+
+let arrayNumber = [4, 74, 28, 12, 1];
+console.log(arrayNumber.reduce((x, y) => x + y));
+// reduce a additionné l'ensemble des nombres du tableau
+
+// Ajouter un élément :
+arrayNumber.push(17);
+console.log(arrayNumber);
+
+// FILTER, SORT, MAP
+// *****************
+
+console.log(arrayNumber.filter((number) => number > 10));
+console.log(arrayNumber.sort()); /* sort le premier index, puis le 2 etc.. */
+console.log(arrayNumber.sort((a, b) => a - b)); /* les range par ordre croissant */
+
+console.log(arrayNumber.filter((number) => number > 10).sort((a, b) => a - b));
+// En général on assemble plusieurs méthodes .
+
+arrayNumber.map((number) => document.body.innerHTML += `<li> ${number}</li>`);
+
+// Peut s'écrire aussi :
+document.body.innerHTML += arrayNumber
+  .map((number) => `<li> ${number}</li>`)
+  .join("");
+
+// **************************************************************
+// Méthodes Objets :
+// **************************************************************
+
+// Pour lister les données d'un objet ou d'un tableau :
+document.body.innerHTML += data
+/*.filter((user) => user.admin === false)*/
+.filter((user) => user.pseudo.includes("e"))
+.sort((a, b) => b.age - a.age) /* Pour les classer du plus agé au plus jeune */
+.map(
+  (user) => 
+    `<div class="user-card">
+        <h2>${user.pseudo}</h2>
+        <p>Age : ${user.age}</p>
+        <p>Status : ${user.admin ? "Modérateur" : "Membre"}<p>
+    </div>`)
+.join("");
+
+
+// **************************************************************
+// Les dates :
+// **************************************************************
+
+// Dates Classiques :
+let date = new Date(); /* Donne la date du jour */
+
+// Timestamp :
+let timestamp = Date.parse(date);
+// console.log(timstamp); Nb secondes entre 1970 et ajourd'hui
+
+// IsoString
+let iso = date.toISOString();
+
+// Pour traiter une date :
+function dateParser(chaine) {
+  let newDate = new Date(chaine).toLocaleDateString("fr-FR", {
+    year: "numeric",
+    month: "long", /* ou numeric ou short */
+    day: "numeric",
+    // hour: "numeric",
+    // minute: "numeric"
+  });
+  return newDate;
+}
+
+console.log(dateParser(date));
+console.log(dateParser(timestamp));
+console.log(dateParser(iso));
+
+// Lien exercice dates sous la vidéo du cours
+
+
+// **************************************************************
+// DESCTRUCTURING :
+// **************************************************************
+
+let moreData = {
+  destVar: ['Element 1', 'Element 2']
+};
+
+const { destVar } = moreData; /* signifie "moreData.destVar" */
+// On a destructué le tableau pour pouvoir l'appeler plus facilement que par moreData.destVar
+
+console.log(moreData.destVar);
+console.log(destVar);
+
+let array5 = [70, 80, 90];
+// console.log(array5[0]);
+// console.log(array5[1]);
+// console.log(array5[2]);
+// Plutot que de devoir mettre chaque élement dans une variable on peut déstructurer l'array :
+
+let [x, y, z] = array5;
+console.log(x, y, z);
+// On a réussi à isoler chaque élément dans une variable différente
+
+
+// On peut destructurer la date ISO pour isoler l'année le mois et le jour :
+const dateDestructuring = (chaine) => {
+  let newDate = chaine.split('T')[0]; /* le [0] permet de ne garder que le premier élément du split */
+
+  // Pour casser la chaine de caractères en tableau :
+  let [y, m, d] = newDate.split("-");
+  
+  return [d, m, y].join("/");
+  // Casse le tableau et met un / entre les éléments
+}
+
+console.log(dateDestructuring(iso));
+
+
+// **************************************************************
+// Les Datasets :
+// **************************************************************
+
+// = données que l'on peut mettre dans des balise.
+
+const h3js = document.getElementById('javascript');
+console.log(h3js.dataset.lang);
+// Voir HTML pour voir le code de dataset = data-something
+
+const h3 = document.querySelectorAll("h3");
+
+h3.forEach ((language) => console.log(language.dataset.lang));
+
+
+// **************************************************************
+// Les Regex :
+// **************************************************************
+
+// regex = expressions régulières
+
+let mail = "adelesimler96@gmail.com";
+
+// Fonction search : la regex se représente avec des slash :
+console.log(mail.search(/adele/)); /* renvoie "0" si il le trouve et "-1" s'il ne le trouve pas */
+
+console.log(mail.replace(/adele/, "de"));
+
+// cheatsheet sous la vidéo du cours
+
+console.log(mail.match(/SImler/i));
+// i ne tiens pas compte de la casse
+console.log(mail.match(/[zug]/i)); 
+// est-ce que les lettres z ou u ou g sont présentes dans mail
+console.log(mail.match(/[129]/i));
+
+// Tous les chiffres :
+console.log(mail.match(/\d/));
+
+// Toutes les lettres :
+console.log(mail.match(/[a-z]/));
+
+// Controler un mail :
+
+console.log(mail.match(/^[\w_-]+@[\w-]+\.[a-z]{2,4}$/i));
+
+let separator = 23987876575
+
+console.log(separator.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")); 
+// sépare tous les millilers dans un nombre par exemple
+
+
+
+
+
+
+
