@@ -1,0 +1,20 @@
+body {
+    height: 100vh;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden; 
+    transition: 1s linear; 
+}
+
+div {
+    background: rgb(47, 47, 47);
+    color: white;
+    padding: 20px 30px;
+    border-radius: 8px;
+    box-shadow: 3px 2px 9px 0px rgba(0, 0, 0, 0.311);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
