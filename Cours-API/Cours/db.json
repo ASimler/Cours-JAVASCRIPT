@@ -1,0 +1,26 @@
+{
+  "posts": [
+    {
+      "id": "2c7a",
+      "pseudo": "Adele",
+      "message": "Yo les gens !"
+    },
+    {
+      "id": "beeb",
+      "pseudo": "Adele",
+      "message": "Yo les gens !"
+    }
+  ],
+  "users": [
+    {
+      "id": "5eda",
+      "pseudo": "Adele",
+      "age": "28"
+    },
+    {
+      "id": "3759",
+      "pseudo": "Adele",
+      "age": "28"
+    }
+  ]
+}
