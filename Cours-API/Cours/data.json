@@ -1,0 +1,53 @@
+{
+    "editor.formatOnSave": true,
+    "workbench.iconTheme": "material-icon-theme",
+    "workbench.colorTheme": "One Dark Pro Darker",
+    "editor.fontFamily": "Cascadia Code",
+    "editor.wordWrap": "on",
+    "json.schemas": [
+      {
+        "fileMatch": [
+          "/myfile"
+        ],
+        "url": "schemaURL"
+      }
+    ],
+  
+    "editor.fontLigatures": true,
+    "editor.tokenColorCustomizations": {
+      "textMateRules": [
+        {
+          "scope": [
+            "comment",
+            "entity.name.type.class",
+            "constant",
+            "storage.modifier",
+            "storage.type.class.js",
+            "keyword"
+          ],
+          "settings": {
+            "fontStyle": "italic"
+          }
+        },
+        {
+          "scope": [
+  
+            "invalid",
+            "keyword.operator",
+            "constant.numeric.css",
+            "keyword.other.unit.px.css",
+            "constant.numeric.decimal.js",
+            "constant.numeric.json"
+          ],
+          "settings": {
+            "fontStyle": ""
+          }
+        }
+      ]
+    }
+  }
+  
+  
+  
+  
+  
