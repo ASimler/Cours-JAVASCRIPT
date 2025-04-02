@@ -22,7 +22,7 @@ req.onload = reqListener;
 
 // fetch("monLien", "objet d'option")
 // .then((response) => {
-//     // response top exploit
+//     // response to exploit
 //     // console.log(response);
     
 // })
