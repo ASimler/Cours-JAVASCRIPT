@@ -34,39 +34,53 @@
 
 // Au début : ne pas faire filter/sort/slice mais uniquement le map puis ajouter les 3
 
-// ----------
-// Fetch data
-// ----------
 
-// Le résultat est un objet, il faut définir des headers ??? :
-// const myHeaders = new Headers();
 
-// const init = {
-//     method: "GET",
-//     headers: myHeaders,
-//     mode: "cors",
-//     cache: "default"
-// };
+// ------------
+// TP - SCRIPT
+// ------------
 
-// Création d'un tableau contenant les pays :
+// Constantes et variables :
+
+const countriesContainer = document.querySelector('.countries-container');
+
 let countries = [];
+
 
 // Pour récupérer les données :
 async function fetchCountries() {
 
-    for (i = 0; i < 250; i++) {
-        await fetch("https://restcountries.com/v3.1/all")
-        .then((res) => res.json())
-        .then((data) => countries.push(data[i]))
-        .catch((err) => console.log(err));
-    }
+    await fetch("https://restcountries.com/v3.1/all")
+    .then((res) => res.json()) 
+    .then((data) => countries.push(data))
+    .catch((err) => console.log(err));
     
+    countries = countries[0];
+
     console.log(countries);
 };
 
 
+
 function countriesDisplay() {
+
+    for (i = 0; i < countries.length; i++) {
+        let name = countries[i].name.common;
+        let capital = countries[i].capital;
+        let img = countries[i].flags.png;
+        let altImg = countries[i].flags.alt;
+        let popultation = countries[i].population;
     
+        countriesContainer.innerHTML = `
+            <ul>
+                <li><img src="${img}" alt="${altImg}</li>
+                <li>${name}</li>
+                <li>Capitale : ${capital}</li>
+                <li>Population : ${popultation}</li>
+            </ul>
+        `
+    };
+
 };
 
 
@@ -78,6 +92,39 @@ window.addEventListener('load', () => {
     }
     
     loadCountries();
+    setTimeout(() => {
+        countriesDisplay();
+    }, 2000);
 });
 
 
+// Il lui faut quand même au moins une seconde pour trouver les résultats
+
+setTimeout(() => {
+    console.log(countries[1]);
+},1000);
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Avec une boucle for :
+// async function fetchCountries() {
+
+//     for (i = 0; i < 250; i++) {
+//         await fetch("https://restcountries.com/v3.1/all")
+//         .then((res) => res.json()) 
+//         .then((data) => countries.push(data[i]))
+//         .catch((err) => console.log(err));
+//     }
+    
+//     console.log(countries);
+// };
