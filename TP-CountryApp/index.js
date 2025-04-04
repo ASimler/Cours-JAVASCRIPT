@@ -46,6 +46,7 @@ console.log(countriesUL);
 const search = document.getElementById("inputSearch");
 
 let countries = [];
+let countrySearched = '';
 
 // Pour récupérer les données :
 async function fetchCountries() {
@@ -83,34 +84,95 @@ window.addEventListener('load', async () => {
     countriesDisplay(); // Affiche immédiatement après
 });
 
-
-
-
 // coutry.name.includes(inputSearch.value);
 
-
 // Pour afficher les données demandées par l'utilisateur :
+// Input focus
 search.addEventListener('input', (e) => {
-    let countrySearched = e.target.value;
+    countrySearched = e.target.value;
     console.log(countrySearched);
-
-    // console.log(countries[0].name.common);
 
     countryFound = countries.filter((country) => country.name.common.toLowerCase() === countrySearched);
     console.log(countryFound);
     
-    countryFound.map(country => {            
-            countriesUL.innerHTML = `
-                <li class="card">
-                    <h2>${country.name.common}</h2>
-                    <p>Capitale : ${country.capital?.[0] || "Aucune capitale"}</p>
-                    <img src="${country.flags.png}" alt="${country.flags.alt || 'Drapeau'}">
-                    <p>Population : ${country.population.toLocaleString()} habitants</p>
-                </li>
-            `;
-        });
-    })
+        countryFound.map(country => { 
+        countriesUL.innerHTML = `
+            <li class="card">
+                <h2>${country.name.common}</h2>
+                <p>Capitale : ${country.capital?.[0] || "Aucune capitale"}</p>
+                <img src="${country.flags.png}" alt="${country.flags.alt || 'Drapeau'}">
+                <p>Population : ${country.population.toLocaleString()} habitants</p>
+            </li>
+        `;
+    });
+})
 
+// Input not focus without value : réafficher tous les pays
+search.addEventListener('focusout', (e) => {
+    if (!e.target.value.trim()) {
+        countriesDisplay();
+    } 
+});
+
+// -------------------------------------------------
+// Optimisation deepseek à revoir : 
+// Variables
+// let countrySearched = '';
+// let searchTimeout;
+
+// // Pour afficher les données demandées par l'utilisateur :
+search.addEventListener('input', (e) => {
+    const newSearch = e.target.value.trim().toLowerCase();
+    
+    // Éviter de traiter si la valeur n'a pas changé
+    if (newSearch === countrySearched) return;
+    
+    countrySearched = newSearch;
+    
+    // Debounce pour éviter de traiter à chaque frappe
+    clearTimeout(searchTimeout);
+    searchTimeout = setTimeout(() => {
+        const countryFound = countrySearched 
+            ? countries.filter(country => 
+                country.name.common.toLowerCase().includes(countrySearched))
+            : [];
+            
+        updateCountryDisplay(countryFound);
+    }, 300);
+});
+
+// // Input not focus without value
+// search.addEventListener('focusout', (e) => {
+//     if (!e.target.value.trim()) {
+//         countriesDisplay();
+//     }
+// });
+
+// // Fonction helper pour mettre à jour l'affichage
+// function updateCountryDisplay(foundCountries) {
+//     if (foundCountries.length === 0) {
+//         countriesUL.innerHTML = countrySearched 
+//             ? '<li>Aucun pays trouvé</li>'
+//             : '';
+//         return;
+//     }
+    
+//     countriesUL.innerHTML = foundCountries.map(country => `
+//         <li class="card">
+//             <h2>${country.name.common}</h2>
+//             <p>Capitale : ${country.capital?.[0] || "Aucune capitale"}</p>
+//             <img src="${country.flags.png}" alt="${country.flags.alt || 'Drapeau'}">
+//             <p>Population : ${country.population.toLocaleString()} habitants</p>
+//         </li>
+//     `).join('');
+// }
+
+// Fon optimisation
+// -------------------------------------------------
+
+
+
+// Pour afficher le nombre de pays demandé :
 
 
 
