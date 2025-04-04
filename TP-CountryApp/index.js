@@ -41,111 +41,95 @@
 // ------------
 
 // Constantes et variables :
-
 const countriesUL = document.getElementById("countries");
-
 console.log(countriesUL);
-
-
-
+const search = document.getElementById("inputSearch");
 
 let countries = [];
 
-
 // Pour récupérer les données :
 async function fetchCountries() {
-
     await fetch("https://restcountries.com/v3.1/all")
-    .then((res) => res.json()) 
-    .then((data) => countries.push(data))
+    .then((res) => res.json())
+    .then((data) => countries = data)
     .catch((err) => console.log(err));
-    
-    countries = countries[0];
-
     console.log(countries);
-};
+}
 
-
+// Pour afficher les données directement :
 function countriesDisplay() {
-
-    countriesUL.innerHTML = countries.map(
-        (country) => {
-            let name = country.name.common;
-            let img = country.flags.png;
-            let altImg = country.flags.alt;
-            let population = country.population;
-        
-            console.log(name, img, altImg, population);
-
-            // Pour récupérer les capitales même si certains n'en n'ont pas :
-            let countryKeys = Object.keys(country);
-            countryKeys.sort();
-        
-            let capital = '';
-        
-            if (countryKeys[2] === 'capital' || countryKeys[3] === 'capital') {
-                capital = country.capital[0];
-            } else {
-                capital = "Aucune capitale pour ce pays";
-            };
-
-            console.log(capital);
-
-
-            return `
+    if (!countries.length) {
+        countriesUL.innerHTML = '<h2>Aucune donnée à afficher</h2>';
+    } else {
+        // Fallbacks avec || si capital et alt non existants
+        countriesUL.innerHTML = countries.map(country => `
             <li class="card">
                 <h2>${country.name.common}</h2>
-                <p>${capital}</p>
-                <img src=${country.flags.png}>
-                <p>Nombre d'habitants : ${country.population}</p>
+                <p>Capitale : ${country.capital?.[0] || "Aucune capitale"}</p>
+                <img src="${country.flags.png}" alt="${country.flags.alt || 'Drapeau'}">
+                <p>Population : ${country.population.toLocaleString()} habitants</p>
             </li>
-            `
-        }
-    ).join('');
-};
-
-
-window.addEventListener('load', () => {
-    document.body.innerHTML += "<h2>Nous chargeons les données...</h2>";
-    async function loadCountries() {
-        await fetchCountries();
-        document.body.querySelector('h2').remove();
+        `).join('');
     }
-    
-    loadCountries();
-    setTimeout(() => {
-        countriesDisplay();
-    }, 3000);
+}
+
+window.addEventListener('load', async () => {
+    const loadingMsg = document.createElement('h2');
+    loadingMsg.textContent = "Chargement des données...";
+    document.body.prepend(loadingMsg);
+
+    await fetchCountries(); // Attend la fin du fetch
+    loadingMsg.remove();
+    countriesDisplay(); // Affiche immédiatement après
 });
 
 
-// Il lui faut quand même au moins une seconde pour trouver les résultats
-
-setTimeout(() => {
-    console.log(countries[1]);
-},1000);
 
 
+// coutry.name.includes(inputSearch.value);
 
 
+// Pour afficher les données demandées par l'utilisateur :
+search.addEventListener('input', (e) => {
+    let countrySearched = e.target.value;
+    console.log(countrySearched);
 
+    // console.log(countries[0].name.common);
 
-
-
-
-
-
-
-
-// Avec une boucle for :
-// async function fetchCountries() {
-
-//     for (i = 0; i < 250; i++) {
-//         await fetch("https://restcountries.com/v3.1/all")
-//         .then((res) => res.json()) 
-//         .then((data) => countries.push(data[i]))
-//         .catch((err) => console.log(err));
-//     }
+    countryFound = countries.filter((country) => country.name.common.toLowerCase() === countrySearched);
+    console.log(countryFound);
     
-//     console.log(countries);
+    countryFound.map(country => {            
+            countriesUL.innerHTML = `
+                <li class="card">
+                    <h2>${country.name.common}</h2>
+                    <p>Capitale : ${country.capital?.[0] || "Aucune capitale"}</p>
+                    <img src="${country.flags.png}" alt="${country.flags.alt || 'Drapeau'}">
+                    <p>Population : ${country.population.toLocaleString()} habitants</p>
+                </li>
+            `;
+        });
+    })
+
+
+
+
+
+
+
+
+// -----------------------------------
+// Code non utile (mais intéressant) :
+// -----------------------------------
+
+// Pour récupérer les capitales même si certains n'en n'ont pas :
+// let countryKeys = Object.keys(country);
+// countryKeys.sort();
+
+// let capital = '';
+
+// if (countryKeys[2] === 'capital' || countryKeys[3] === 'capital') {
+//     capital = country.capital[0];
+// } else {
+//     capital = "Aucune capitale pour ce pays";
 // };
