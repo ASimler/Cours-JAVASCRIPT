@@ -34,7 +34,26 @@ h2 {
   font-weight: 200;
 }
 
-.countries-container {
-  height: 1200px;
-  width: 95%;
+#countries {
+  display: flex;
+  flex-wrap: wrap;
+  padding-top: 110px;
+}
+#countries > li {
+  flex: 1 0 25%;
+  min-width: 280px;
+  /* border: 1px solid #16d9e7; */
+  background: white;
+  margin: 10px;
+  border-radius: 5px;
+  padding: 10px 20px;
+  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.084);
+}
+
+ul {
+  display: flex;
+}
+
+li {
+  background: red;
 }

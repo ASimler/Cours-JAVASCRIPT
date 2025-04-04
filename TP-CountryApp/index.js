@@ -42,7 +42,12 @@
 
 // Constantes et variables :
 
-const countriesContainer = document.querySelector('.countries-container');
+const countriesUL = document.getElementById("countries");
+
+console.log(countriesUL);
+
+
+
 
 let countries = [];
 
@@ -61,26 +66,42 @@ async function fetchCountries() {
 };
 
 
-
 function countriesDisplay() {
 
-    for (i = 0; i < countries.length; i++) {
-        let name = countries[i].name.common;
-        let capital = countries[i].capital;
-        let img = countries[i].flags.png;
-        let altImg = countries[i].flags.alt;
-        let popultation = countries[i].population;
-    
-        countriesContainer.innerHTML = `
-            <ul>
-                <li><img src="${img}" alt="${altImg}</li>
-                <li>${name}</li>
-                <li>Capitale : ${capital}</li>
-                <li>Population : ${popultation}</li>
-            </ul>
-        `
-    };
+    countriesUL.innerHTML = countries.map(
+        (country) => {
+            let name = country.name.common;
+            let img = country.flags.png;
+            let altImg = country.flags.alt;
+            let population = country.population;
+        
+            console.log(name, img, altImg, population);
 
+            // Pour récupérer les capitales même si certains n'en n'ont pas :
+            let countryKeys = Object.keys(country);
+            countryKeys.sort();
+        
+            let capital = '';
+        
+            if (countryKeys[2] === 'capital' || countryKeys[3] === 'capital') {
+                capital = country.capital[0];
+            } else {
+                capital = "Aucune capitale pour ce pays";
+            };
+
+            console.log(capital);
+
+
+            return `
+            <li class="card">
+                <h2>${country.name.common}</h2>
+                <p>${capital}</p>
+                <img src=${country.flags.png}>
+                <p>Nombre d'habitants : ${country.population}</p>
+            </li>
+            `
+        }
+    ).join('');
 };
 
 
@@ -94,7 +115,7 @@ window.addEventListener('load', () => {
     loadCountries();
     setTimeout(() => {
         countriesDisplay();
-    }, 2000);
+    }, 3000);
 });
 
 
