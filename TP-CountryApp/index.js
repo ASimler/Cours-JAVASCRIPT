@@ -121,25 +121,25 @@ search.addEventListener('focusout', (e) => {
 // let searchTimeout;
 
 // // Pour afficher les données demandées par l'utilisateur :
-search.addEventListener('input', (e) => {
-    const newSearch = e.target.value.trim().toLowerCase();
+// search.addEventListener('input', (e) => {
+//     const newSearch = e.target.value.trim().toLowerCase();
     
-    // Éviter de traiter si la valeur n'a pas changé
-    if (newSearch === countrySearched) return;
+//     // Éviter de traiter si la valeur n'a pas changé
+//     if (newSearch === countrySearched) return;
     
-    countrySearched = newSearch;
+//     countrySearched = newSearch;
     
-    // Debounce pour éviter de traiter à chaque frappe
-    clearTimeout(searchTimeout);
-    searchTimeout = setTimeout(() => {
-        const countryFound = countrySearched 
-            ? countries.filter(country => 
-                country.name.common.toLowerCase().includes(countrySearched))
-            : [];
+//     // Debounce pour éviter de traiter à chaque frappe
+//     clearTimeout(searchTimeout);
+//     searchTimeout = setTimeout(() => {
+//         const countryFound = countrySearched 
+//             ? countries.filter(country => 
+//                 country.name.common.toLowerCase().includes(countrySearched))
+//             : [];
             
-        updateCountryDisplay(countryFound);
-    }, 300);
-});
+//         updateCountryDisplay(countryFound);
+//     }, 300);
+// });
 
 // // Input not focus without value
 // search.addEventListener('focusout', (e) => {
