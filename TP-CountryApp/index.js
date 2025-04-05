@@ -44,6 +44,8 @@
 const countriesUL = document.getElementById("countries");
 console.log(countriesUL);
 const search = document.getElementById("inputSearch");
+const range = document.getElementById("inputRange");
+const rangeSpan = document.getElementById("rangeValue");
 
 let countries = [];
 let countrySearched = '';
@@ -132,9 +134,18 @@ search.addEventListener('focusout', (e) => {
     } 
 });
 
+let countriesSlice = [];
 
+// Input Range
+range.addEventListener('input', (e) => {
+    rangeValue = e.target.value;
+    rangeSpan.innerHTML = rangeValue;
+    
+    countriesSlice = Object.entries(countries).slice(0, rangeValue).map(entry => entry[1]);
 
+    updateCountryDisplay(countriesSlice);
 
+});
 
 
 
