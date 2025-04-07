@@ -46,9 +46,13 @@ console.log(countriesUL);
 const search = document.getElementById("inputSearch");
 const range = document.getElementById("inputRange");
 const rangeSpan = document.getElementById("rangeValue");
+const minToMax = document.getElementById("minToMax");
 
 let countries = [];
 let countrySearched = '';
+let countriesSlice = [];
+let countriesSort = [];
+let countriesValues = [];
 
 // Pour récupérer les données :
 async function fetchCountries() {
@@ -134,18 +138,50 @@ search.addEventListener('focusout', (e) => {
     } 
 });
 
-let countriesSlice = [];
+
 
 // Input Range
 range.addEventListener('input', (e) => {
     rangeValue = e.target.value;
     rangeSpan.innerHTML = rangeValue;
-    
+    // récupère les keys:values de countries.coupe countries de 0 à rangeValue et entry[1] récupère uniquement les values sans les keys.
     countriesSlice = Object.entries(countries).slice(0, rangeValue).map(entry => entry[1]);
 
     updateCountryDisplay(countriesSlice);
 
 });
+
+// Tri croissant
+minToMax.addEventListener('click', () => {
+
+   countriesSort = Object.entries(countries).map(country => country[1]).sort((a, b) => a.population - b.population);
+
+    updateCountryDisplay(countriesSort);
+})
+
+// Tri décroissant
+maxToMin.addEventListener('click', () => {
+
+    countriesSort = Object.entries(countries).map(country => country[1]).sort((a, b) => b.population - a.population);
+    
+    updateCountryDisplay(countriesSort)
+ })
+
+// Tri alphabétique
+alpha.addEventListener('click', () => {
+
+    countriesUL.innerHTML = countries.map(country => `
+        <li class="card">
+            <h2>${country.name.common}</h2>
+            <p>Capitale : ${country.capital?.[0] || "Aucune capitale"}</p>
+            <img src="${country.flags.png}" alt="${country.flags.alt || 'Drapeau'}">
+            <p>Population : ${country.population.toLocaleString()} habitants</p>
+        </li>
+    `).sort().join('');  
+
+
+
+})
 
 
 
