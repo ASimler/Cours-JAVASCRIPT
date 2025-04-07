@@ -41,21 +41,22 @@ h2 {
   padding-top: 110px;
 }
 #countries > li {
-  flex: 1 0 10%;
+  flex: 0 0 10%;
   min-width: 280px;
-  /* border: 1px solid #16d9e7; */
   background: rgb(41, 41, 41);
   color: white;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   text-align: center;
   margin: 10px;
   border-radius: 5px;
-  padding: 10px 20px;
-  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.084);
+  padding: 8px 10px;
 }
 
 ul {
-  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-left: 0;
+
 }
 
 li {
