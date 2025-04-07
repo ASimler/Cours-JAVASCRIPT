@@ -130,15 +130,12 @@ search.addEventListener('input', (e) => {
     }
 })
 
-
 // Input not focus without value : réafficher tous les pays
 search.addEventListener('focusout', (e) => {
     if (!e.target.value.trim()) {
         countriesDisplay();
     } 
 });
-
-
 
 // Input Range
 range.addEventListener('input', (e) => {
@@ -178,74 +175,9 @@ alpha.addEventListener('click', () => {
             <p>Population : ${country.population.toLocaleString()} habitants</p>
         </li>
     `).sort().join('');  
-
-
-
 })
 
 
-
-
-
-
-
-
-
-// -------------------------------------------------
-// Optimisation deepseek à revoir : 
-// Variables
-// let countrySearched = '';
-// let searchTimeout;
-
-// // Pour afficher les données demandées par l'utilisateur :
-// search.addEventListener('input', (e) => {
-//     const newSearch = e.target.value.trim().toLowerCase();
-    
-//     // Éviter de traiter si la valeur n'a pas changé
-//     if (newSearch === countrySearched) return;
-    
-//     countrySearched = newSearch;
-    
-//     // Debounce pour éviter de traiter à chaque frappe
-//     clearTimeout(searchTimeout);
-//     searchTimeout = setTimeout(() => {
-//         const countryFound = countrySearched 
-//             ? countries.filter(country => 
-//                 country.name.common.toLowerCase().includes(countrySearched))
-//             : [];
-            
-//         updateCountryDisplay(countryFound);
-//     }, 300);
-// });
-
-// // Input not focus without value
-// search.addEventListener('focusout', (e) => {
-//     if (!e.target.value.trim()) {
-//         countriesDisplay();
-//     }
-// });
-
-// // Fonction helper pour mettre à jour l'affichage
-// function updateCountryDisplay(foundCountries) {
-//     if (foundCountries.length === 0) {
-//         countriesUL.innerHTML = countrySearched 
-//             ? '<li>Aucun pays trouvé</li>'
-//             : '';
-//         return;
-//     }
-    
-//     countriesUL.innerHTML = foundCountries.map(country => `
-//         <li class="card">
-//             <h2>${country.name.common}</h2>
-//             <p>Capitale : ${country.capital?.[0] || "Aucune capitale"}</p>
-//             <img src="${country.flags.png}" alt="${country.flags.alt || 'Drapeau'}">
-//             <p>Population : ${country.population.toLocaleString()} habitants</p>
-//         </li>
-//     `).join('');
-// }
-
-// Fon optimisation
-// -------------------------------------------------
 
 
 

@@ -12,6 +12,8 @@ input {
 input:focus {
   border-radius: 30px;
   background: rgb(238, 238, 238);
+  outline: 2px solid rgb(112, 187, 217);
+  border: none;
 }
 .range-container {
   display: flex;
@@ -21,10 +23,29 @@ input:focus {
 input[type="range"] {
   width: 250px;
   margin: 0 10px 10px 0;
+  cursor: pointer;
 }
 .range-container span {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-size: 1.2rem;
-  transform: translateY(-3px);
+  transform: translateY(-6px);
+}
+
+.btnSort {
+  width: 120px;
+  background: none;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: rgb(18, 107, 142);
+  border: 1px solid rgb(18, 107, 142);
+  border-radius: 5px;
+  padding: 8px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.btnSort:hover {
+  color: white;
+  background: rgb(92, 177, 210);
 }
 
 h2 {
