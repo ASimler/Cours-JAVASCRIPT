@@ -1,0 +1,3 @@
+// Rappel des objets
+// ATTENTION : le type of d'un objet et d'un array dans la console est "object"...
+// Chaque balise est un object.
