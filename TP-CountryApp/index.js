@@ -42,17 +42,18 @@
 
 // Constantes et variables :
 const countriesUL = document.getElementById("countries");
-console.log(countriesUL);
+const countriesContainer = document.querySelector(".countries-container");
 const search = document.getElementById("inputSearch");
 const range = document.getElementById("inputRange");
 const rangeSpan = document.getElementById("rangeValue");
-const minToMax = document.getElementById("minToMax");
+const btnSort = document.querySelectorAll(".btnSort");
 
 let countries = [];
 let countrySearched = '';
 let countriesSlice = [];
 let countriesSort = [];
 let countriesValues = [];
+let triVar = "maxToMin";
 
 // Pour récupérer les données :
 async function fetchCountries() {
@@ -66,37 +67,32 @@ async function fetchCountries() {
 // Pour afficher les données directement :
 function countriesDisplay() {
     if (!countries.length) {
-        countriesUL.innerHTML = '<h2>Aucune donnée à afficher</h2>';
+        countriesContainer.innerHTML = '<h2>Aucune donnée à afficher</h2>';
     } else {
+        countriesContainer.innerHTML = countries
+        .filter((country) =>
+            country.translations.fra.common.toLowerCase().includes(search.value.toLowerCase())
+        )   
+        .sort((a, b) => {
+            if (triVar === 'maxToMin') {
+                return b.population - a.population;
+            } else if (triVar === 'minToMax') {
+                return a.population - b.population;
+            } else if (triVar === 'alpha') {
+                return a.translations.fra.common.localeCompare(b.translations.fra.common);
+            }
+        })
+        .slice(0, inputRange.value)
         // Fallbacks avec || si capital et alt non existants
-        countriesUL.innerHTML = countries.map(country => `
-            <li class="card">
-                <h2>${country.name.common}</h2>
+        .map(country => `
+            <div class="card">
+                <img src="${country.flags.svg}" alt="${country.flags.alt || 'Drapeau'}">
+                <h2>${country.translations.fra.common}</h2>
                 <p>Capitale : ${country.capital?.[0] || "Aucune capitale"}</p>
-                <img src="${country.flags.png}" alt="${country.flags.alt || 'Drapeau'}">
                 <p>Population : ${country.population.toLocaleString()} habitants</p>
-            </li>
+            </div>
         `).join('');
     }
-}
-
-// Pour mettre à jour les données avec l'input :
-function updateCountryDisplay(foundCountries) {
-    if (foundCountries.length === 0) {
-        countriesUL.innerHTML = countrySearched 
-            ? '<li>Aucun pays trouvé</li>'
-            : '';
-        return;
-    }
-    
-    countriesUL.innerHTML = foundCountries.map(country => `
-        <li class="card">
-            <h2>${country.name.common}</h2>
-            <p>Capitale : ${country.capital?.[0] || "Aucune capitale"}</p>
-            <img src="${country.flags.png}" alt="${country.flags.alt || 'Drapeau'}">
-            <p>Population : ${country.population.toLocaleString()} habitants</p>
-        </li>
-    `).join('');
 }
 
 window.addEventListener('load', async () => {
@@ -110,24 +106,9 @@ window.addEventListener('load', async () => {
     countriesDisplay(); // Affiche immédiatement après
 });
 
-// Pour afficher les données demandées par l'utilisateur :
 // Input focus
 search.addEventListener('input', (e) => {
-    const newSearch = e.target.value.trim().toLowerCase();
-    // trim() retire les espaces inutiles ajoutés par l'utiisateur en début et en fin de string
-    
-    // Éviter de traiter si la valeur n'a pas changé
-    if (newSearch === countrySearched) return;
-    
-    countrySearched = newSearch; 
-
-    const countryFound = countrySearched ? countries.filter(country => country.name.common.toLowerCase().includes(countrySearched)) : [];
-
-    updateCountryDisplay(countryFound);
-
-    if (newSearch.length == 0) {
-        countriesDisplay()
-    }
+    countriesDisplay();
 })
 
 // Input not focus without value : réafficher tous les pays
@@ -140,63 +121,17 @@ search.addEventListener('focusout', (e) => {
 // Input Range
 range.addEventListener('input', (e) => {
     rangeValue = e.target.value;
-    rangeSpan.innerHTML = rangeValue;
-    // récupère les keys:values de countries.coupe countries de 0 à rangeValue et entry[1] récupère uniquement les values sans les keys.
-    countriesSlice = Object.entries(countries).slice(0, rangeValue).map(entry => entry[1]);
-
-    updateCountryDisplay(countriesSlice);
+    rangeSpan.textContent = rangeValue;
+    countriesDisplay();
 
 });
 
-// Tri croissant
-minToMax.addEventListener('click', () => {
 
-   countriesSort = Object.entries(countries).map(country => country[1]).sort((a, b) => a.population - b.population);
-
-    updateCountryDisplay(countriesSort);
+// Tris
+btnSort.forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+        triVar = e.target.id;
+        countriesDisplay();
+        
+    })
 })
-
-// Tri décroissant
-maxToMin.addEventListener('click', () => {
-
-    countriesSort = Object.entries(countries).map(country => country[1]).sort((a, b) => b.population - a.population);
-    
-    updateCountryDisplay(countriesSort)
- })
-
-// Tri alphabétique
-alpha.addEventListener('click', () => {
-
-    countriesUL.innerHTML = countries.map(country => `
-        <li class="card">
-            <h2>${country.name.common}</h2>
-            <p>Capitale : ${country.capital?.[0] || "Aucune capitale"}</p>
-            <img src="${country.flags.png}" alt="${country.flags.alt || 'Drapeau'}">
-            <p>Population : ${country.population.toLocaleString()} habitants</p>
-        </li>
-    `).sort().join('');  
-})
-
-
-
-
-
-
-
-
-
-// -----------------------------------
-// Code non utile (mais intéressant) :
-// -----------------------------------
-
-// Pour récupérer les capitales même si certains n'en n'ont pas :
-// let countryKeys = Object.keys(country);
-// countryKeys.sort();
-
-// let capital = '';
-
-// if (countryKeys[2] === 'capital' || countryKeys[3] === 'capital') {
-//     capital = country.capital[0];
-// } else {
-//     capital = "Aucune capitale pour ce pays";
-// };
