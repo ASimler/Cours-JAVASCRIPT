@@ -33,6 +33,7 @@ const questions = [
   ),
 ];
 
+
 class Quiz {
   constructor(questions) {
     this.score = 0;
@@ -55,6 +56,7 @@ class Quiz {
     return this.currentQuestionIndex >= this.questions.length;
   }
 }
+
 
 // Quizz display
 const display = {
