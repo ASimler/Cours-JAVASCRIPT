@@ -1,0 +1,5 @@
+4
+100C:\Users\adele\OneDrive\Desktop\COURS FROM SCRATCH\Cours-JAVASCRIPT\Cours-Suite\test-js\package.json133887734592114191 0
+94C:\Users\adele\OneDrive\Desktop\COURS FROM SCRATCH\Cours-JAVASCRIPT\Cours-Suite\test-js\add.js133887730867904812 0
+98C:\Users\adele\OneDrive\Desktop\COURS FROM SCRATCH\Cours-JAVASCRIPT\Cours-Suite\test-js\index.html133887549029384582 0
+96C:\Users\adele\OneDrive\Desktop\COURS FROM SCRATCH\Cours-JAVASCRIPT\Cours-Suite\test-js\index.js133887549029745352 0
